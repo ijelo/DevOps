@@ -9,7 +9,7 @@ You need command line tools installed, open terminal and execute:
 
 `xcode-select --install`
 
-##Install the following applications:
+## Install the following applications:
 
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
