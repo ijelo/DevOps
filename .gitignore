@@ -1,2 +1,6 @@
 packer_cache/*
 *.swp
+iso/*.iso
+target/*.box
+.vagrant
+
