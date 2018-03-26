@@ -9,7 +9,7 @@ You need command line tools installed, open terminal and execute:
 
 `xcode-select --install`
 
-## Install the following applications:
+### Install the following applications:
 
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
@@ -18,3 +18,14 @@ You need command line tools installed, open terminal and execute:
 [Packer](https://releases.hashicorp.com/packer/1.2.1/packer_1.2.1_darwin_amd64.zip)
 
 
+### Run example
+
+From the cloned root directory:
+
+`cd centos7-example`
+
+`make all`
+
+After around 15 minutes a freshly baked VM is available on your VirtualBox system, login to the system and have fun.
+
+`make ssh`
