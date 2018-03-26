@@ -29,3 +29,10 @@ From the cloned root directory:
 After around 15 minutes a freshly baked VM is available on your VirtualBox system, login to the system and have fun.
 
 `make ssh`
+
+### Security Considerations about the example
+
+The kickstartfile configuration uses some hard coded stuff like username and password actually, they are the vagrant defaults. This is true for the bootstrapfile as well, that uses the well-known insecure public key from Vagrant.
+
+Make sure when using in live- or production environments thats these values are replaced by the ones issued by your sysadmin or security officer.
+
