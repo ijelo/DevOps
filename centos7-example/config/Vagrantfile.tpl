@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
 	config.vm.provider :virtualbox do |p|
 		p.customize ["modifyvm", :id, "--memory", 1024]
 		p.customize ["modifyvm", :id, "--cpus", 1]
-#		p.customize ["modifyvm", :id, "--cpuexecutioncap", 50]
 	end
 
 	config.vm.network "forwarded_port", guest: 80, host: 8000
@@ -22,10 +21,5 @@ Vagrant.configure("2") do |config|
 
         config.vm.network "private_network", ip: "192.168.200.200", virtualbox__intnet: "backend.hq.ijelo.net"
 
-	#config.vm.provision "ansible" do |ansible|
-	#	ansible.playbook = "provisioning/site.yml"
-	#	ansible.host_key_checking = false
-	#	ansible.raw_ssh_args = '-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no -o IdentitiesOnly=yes'
-	#end
 end
 
