@@ -1,0 +1,77 @@
+{
+  "variables": {
+      "name": "c7-simple",
+      "os_user": "vagrant",
+      "os_password": "vagrant",
+      "ssh_wait_timeout": "600s",
+      "boot_wait": "10s",
+      "guest_os_type": "RedHat_64",
+      "guest_architecture": "x64",
+      "release": "CentOS-7-x86_64-Minimal-1708",
+      "url": "http://centos.mirror.transip.nl/7/isos/x86_64",
+      "file": "http://centos.mirror.transip.nl/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso",
+      "checksum": "5848f2fd31c7acf3811ad88eaca6f4aa",
+      "iso_path": "iso",
+      "output_path": "builds",
+      "http_directory_path": "http/",
+      "disk_size": "22528",
+      "memory": "1024",
+      "cpus": "1",
+      "usb": "off",
+      "audio": "none",
+      "type": "md5",
+      "non_gui": "false"
+  },
+    "builders": [{
+        "type": "virtualbox-iso",
+        "guest_os_type": "{{ user `guest_os_type` }}",
+        "iso_url": "{{ user `url` }}/{{ user `release` }}.iso",
+        "iso_checksum": "{{ user `checksum` }}",
+        "iso_checksum_type": "{{ user `type` }}",
+        "iso_target_path": "{{ user `iso_path` }}/{{ user `release` }}.iso",
+        "headless": "{{ user `non_gui` }}",
+        "ssh_username": "{{ user `os_user` }}",
+        "ssh_password": "{{ user `os_password` }}",
+        "ssh_wait_timeout": "{{ user `ssh_wait_timeout` }}",
+        "vm_name": "{{ user `name` }}",
+        "http_directory": "{{ user `http_directory_path` }}",
+        "output_directory": "{{ user `output_path` }}",
+        "disk_size": "{{ user `disk_size` }}",
+        "boot_wait": "{{ user `boot_wait` }}",
+        "boot_command": [
+            "<esc><wait>",
+            "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg",
+            "<enter><wait>"
+        ],
+        "shutdown_command": "echo '{{ user `os_password` }}' |sudo -S shutdown -P now",
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"],
+            ["modifyvm", "{{.Name}}", "--cpus"  , "{{ user `cpus` }}"],
+            ["modifyvm", "{{.Name}}", "--usb"   , "{{ user `usb` }}"],
+            ["modifyvm", "{{.Name}}", "--audio" , "{{ user `audio` }}"]
+        ]
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
+            "sudo yum -y install gcc make bzip2 kernel-headers kernel-devel dkms",
+            "sudo mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt",
+            "sudo sh /mnt/VBoxLinuxAdditions.run",
+            "sudo umount /mnt",
+            "sudo rm -f /home/vagrant/VBoxGuestAdditions.iso",
+            "sudo rm -rf /tmp/*",
+            "sudo rm -f /var/log/wtmp /var/log/btmp ",
+            "sudo yum clean all",
+            "sudo rm -rf /var/cache/* /usr/share/doc/*",
+            "rm -f .bash_history",
+            "history -c"
+        ]
+    }],
+    "post-processors": [{
+        "type": "vagrant",
+        "output": "target/{{ user `name` }}-{{ user `guest_architecture` }}-{{.Provider}}-minimal.box",
+        "keep_input_artifact": false
+
+    }]
+}
