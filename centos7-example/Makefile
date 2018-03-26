@@ -22,6 +22,7 @@ validate:
 	packer validate $(CURRENT_DIR)/packer.json
 
 build:
+        mkdir -p $(CURRENT_DIR)/{iso,target}
 	packer build $(CURRENT_DIR)/packer.json
 	cp $(CURRENT_DIR)/config/Vagrantfile.tpl $(CURRENT_DIR)/target/Vagrantfile
 	cp $(CURRENT_DIR)/config/bootstrap.tpl   $(CURRENT_DIR)/target/bootstrap.sh
