@@ -34,5 +34,5 @@ After around 15 minutes a freshly baked VM is available on your VirtualBox syste
 
 The kickstartfile configuration uses some hard coded stuff like username and password actually, they are the vagrant defaults. This is true for the bootstrapfile as well, that uses the well-known insecure public key from Vagrant.
 
-Make sure when using in live- or production environments thats these values are replaced by the ones issued by your sysadmin or security officer.
+Make sure when using in live- or production environments that these values are replaced by the ones issued by your sysadmin or your security officer.
 
