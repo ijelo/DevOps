@@ -20,7 +20,7 @@
       "usb": "off",
       "audio": "none",
       "type": "md5",
-      "non_gui": "false"
+      "non_gui": "true"
   },
     "builders": [{
         "type": "virtualbox-iso",
