@@ -45,7 +45,7 @@ _EOF_
 
 
 yum -y update
-yum install -y MariaDB-server MariaDB-client
+yum install -y MariaDB-server MariaDB-client expect
 
 
 systemctl start mariadb
