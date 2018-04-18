@@ -88,7 +88,7 @@ firewall-cmd --reload
 
 popd
 
-
+pear channel-update pear.php.net
 pear install DB
 
 ### semanage fcontext -a -t httpd_sys_content_t "/var/www/html/myapp(/.*)?"
